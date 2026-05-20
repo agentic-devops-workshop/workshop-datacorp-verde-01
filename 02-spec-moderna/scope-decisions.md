@@ -23,10 +23,10 @@
 > - **Descartar**: não trazer — funcionalidade obsoleta ou desnecessária
 > - **Evoluir**: trazer E melhorar (nova UX, novo fluxo, nova capacidade)
 
-**Time**: [Nome do Time]
-**Data**: 19/05/2026
-**Edição**:
-**Par 1 (Product Owner) responsável**: [Nome]
+**Time**: DataCorp Verde 01
+**Data**: 20/05/2026
+**Edição**: 1.0
+**Par 1 (Product Owner) responsável**: [Definir na sessão]
 
 ## Por que isso importa
 
@@ -45,20 +45,21 @@ Pergunte de cada funcionalidade:
 
 ## Decisões por Funcionalidade
 
-| #   | Funcionalidade            | Decisão                      | Justificativa | Regra de Negócio (BR-XXX) | Prioridade           |
-| --- | ------------------------- | ---------------------------- | ------------- | ------------------------- | -------------------- |
-| 1   | Cadastro de Beneficiários | Migrar / Descartar / Evoluir |               |                           | Alta / Média / Baixa |
-| 2   | Consulta de Beneficiários |                              |               |                           |                      |
-| 3   | Registro de Pagamentos    |                              |               |                           |                      |
-| 4   | Processamento Batch       |                              |               |                           |                      |
-| 5   | Cálculo de Benefícios     |                              |               |                           |                      |
-| 6   | Validação de CPF          |                              |               |                           |                      |
-| 7   | Relatórios                |                              |               |                           |                      |
-| 8   | Auditoria                 |                              |               |                           |                      |
-| 9   | Gestão de Usuários        |                              |               |                           |                      |
-| 10  |                           |                              |               |                           |                      |
-| 11  |                           |                              |               |                           |                      |
-| 12  |                           |                              |               |                           |                      |
+| #   | Funcionalidade            | Decisão    | Justificativa | Regra de Negócio (BR-XXX) | Prioridade |
+| --- | ------------------------- | ---------- | ------------- | ------------------------- | ---------- |
+| 1   | Cadastro de Beneficiários | **Evoluir** | Entidade hub central (11 programas dependem). Migrar lógica de negócio, modernizar UX (3270→web), unificar validação CPF (3 cópias divergentes), migrar PE group (dependentes) para tabela separada | BR-001, BR-004, BR-006 | Alta |
+| 2   | Consulta de Beneficiários | **Evoluir** | Substituir tela MAP 3270 por UI moderna com filtros e mascaramento CPF consistente (LGPD). Lógica de leitura simples | BR-001 | Média |
+| 3   | Geração de Pagamentos (Batch) | **Migrar** | Processo crítico mensal (1° dia útil). Ciclo G→P/D/E sem transição reversa. Eliminar duplicação com CALCBENF — unificar fórmula em serviço único | BR-007, BR-008, BR-009, BR-010, BR-020, BR-064 | Alta |
+| 4   | Cálculo de Benefícios | **Migrar** | Core financeiro: fórmula com 6 fatores (regional, familiar, renda, idade, reajuste). Truncamento obrigatório. Manter exata reprodução para auditoria comparativa | BR-003 a BR-012 | Alta |
+| 5   | Cálculo de Descontos | **Evoluir** | Unificar divergência batch (3% fixo) vs online (4 faixas progressivas, 6 tipos). Criar engine única parametrizável. Manter exceção judicial sem teto | BR-013 a BR-019 | Alta |
+| 6   | Validação de CPF | **Evoluir** | Unificar 3 algoritmos divergentes (CADBENEF, VALBENEF, VALDOCS) em serviço único. Decisão pendente sobre 8 prefixos especiais | BR-023 a BR-027 | Média |
+| 7   | Validação de Elegibilidade | **Migrar** | Regras complexas de status + dependência de VALDOCS. Migrar com parametrização moderna (JSON config vs hardcode) | BR-001, BR-002 | Alta |
+| 8   | Relatórios (RELPGT + RELAUDIT) | **Evoluir** | Substituir PRINT 66 lin/pag por relatórios dinâmicos (PDF export + dashboard). Manter dados obrigatórios para TCU/CGU | BR-074 a BR-082 | Média |
+| 9   | Auditoria | **Evoluir** | Incluir exclusões (tipo 'EX' atualmente filtrado), adicionar IP/sessão/JWT claims, trilha completa por compliance | BR-064, BR-082 | Alta |
+| 10  | Correção Monetária (CALCCORR) | **Descartar** | Tabela IPCA congelada desde 2012, última carga em 2014. Programa possivelmente abandonado. Se reativado no futuro, será greenfield com API IBGE | BR-121 | Baixa |
+| 11  | Conciliação Bancária (BATCHCON) | **Evoluir** | Eliminar código morto do Banco Real (2007). Modernizar integração BB de CNAB 240 flat file para API. Guard clause de status obrigatório (MYS-017) | BR-074 a BR-076 | Média |
+| 12  | Gestão de Programas Sociais | **Migrar** | CADPROG: tipos A/P/T, status A/I. Lógica simples de CRUD com validação de tipo. Migrar como está para JPA | BR-002, BR-121 | Média |
+| 13  | Gestão de Dependentes | **Evoluir** | Migrar de PE group (desnormalizado) para tabela separada. NUM-DEPENDENTES vira campo calculado (COUNT) em vez de redundante | BR-004 | Média |
 
 > Adicione linhas para cada funcionalidade identificada no `discovery-report.md` do Estágio 1.
 
@@ -70,9 +71,11 @@ Pergunte de cada funcionalidade:
 
 | #   | Funcionalidade Nova | Justificativa | Prioridade | Complexidade |
 | --- | ------------------- | ------------- | ---------- | ------------ |
-| N1  |                     |               |            |              |
-| N2  |                     |               |            |              |
-| N3  |                     |               |            |              |
+| N1  | API REST (OpenAPI/Swagger) | Legado é 3270/MAP sem API. Modernização requer endpoints RESTful para integração com frontend Next.js e sistemas externos | Alta | Média |
+| N2  | Dashboard Analítico | Substituir relatórios estáticos (66 lin/pag) por visualizações interativas com filtros e export. Necessidade de TCU/CGU por dados em tempo real | Média | Média |
+| N3  | Notificações (Email/Push) | Legado não notifica beneficiários. Modernização permite avisar sobre pagamentos gerados, status e pendências documentais | Baixa | Baixa |
+| N4  | Autenticação OAuth2/JWT | Legado não tem autenticação real (USUARIO='BATCH' hardcoded). Sistema moderno requer SSO, roles e sessão auditável | Alta | Alta |
+| N5  | Parametrização dinâmica | Substituir 27 fatores regionais, faixas IPCA e alíquotas hardcoded por tabelas de referência no banco, editáveis sem deploy | Média | Média |
 
 ---
 
@@ -80,18 +83,22 @@ Pergunte de cada funcionalidade:
 
 | Decisão   | Quantidade | Percentual |
 | --------- | ---------- | ---------- |
-| Migrar    |            |            |
-| Descartar |            |            |
-| Evoluir   |            |            |
-| **Total** |            | 100%       |
+| Migrar    | 5          | 38%        |
+| Descartar | 1          | 8%         |
+| Evoluir   | 7          | 54%        |
+| **Total** | **13**     | 100%       |
 
 ## Riscos de Escopo
 
 > Liste os riscos das decisões tomadas:
 
-| Risco | Probabilidade        | Impacto              | Mitigação |
-| ----- | -------------------- | -------------------- | --------- |
-|       | Alta / Média / Baixa | Alto / Médio / Baixo |           |
+| Risco | Probabilidade | Impacto | Mitigação |
+| ----- | ------------- | ------- | --------- |
+| Reajuste duplo (Fator K + FATOR-REAJ) — sem validação do negócio, cálculo pode divergir do legado | Alta | Alto | Validar com área de negócio antes de implementar REQ de cálculo. Manter ambos até decisão formal |
+| Unificação de descontos (batch 3% vs online 4 faixas) pode gerar valores diferentes para beneficiários em transição | Alta | Alto | Implementar engine parametrizável que suporte ambos os modos durante migração gradual (Strangler Fig) |
+| Remoção de bypass região 99 pode bloquear fluxo legítimo desconhecido | Média | Alto | Documentar como exceção controlada com flag, log detalhado e revisão trimestral |
+| Escopo de 13 funcionalidades + 5 greenfield pode não caber no tempo do Estágio 3 | Média | Alto | Priorizar: Alta primeiro (itens 1,3,4,5,7,9 + N4). Média e Baixa viram backlog |
+| Migração de PE group para tabela separada pode causar inconsistência se NUM-DEPENDENTES dessincronizar durante coexistência | Média | Médio | Manter campo redundante durante migração, derivar COUNT apenas quando legado desligado |
 
 ## Aprovação
 

@@ -6,8 +6,12 @@ tools:
   - codebase
   - search
   - editFiles
+  - createFiles
+  - runCommands
+  - runTests
   - fetch
   - githubRepo
+  - usages
 ---
 
 # @evolution-agent

@@ -1,8 +1,8 @@
 ---
 description: "Checklist de self-review para segurança e problemas OWASP Top 10 em uma feature recém-construída."
-mode: ask
+mode: agent
 model: claude-sonnet-4-6
-tools: ['codebase', 'search']
+tools: ['codebase', 'search', 'editFiles', 'createFiles', 'runCommands']
 ---
 
 # /security-self-review

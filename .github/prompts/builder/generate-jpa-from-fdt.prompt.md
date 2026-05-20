@@ -2,7 +2,7 @@
 description: "Gera classes de entidade JPA a partir de definições Adabas FDT, com JSONB para campos MU/PE."
 mode: agent
 model: claude-sonnet-4-6
-tools: ['codebase', 'search', 'editFiles']
+tools: ['codebase', 'search', 'editFiles', 'createFiles', 'runCommands']
 ---
 
 # /generate-jpa-from-fdt

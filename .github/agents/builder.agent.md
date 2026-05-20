@@ -3,12 +3,15 @@ name: builder
 description: "Agente do Estágio 3 — traduz Natural para Java, gera JPA a partir de FDT, escreve testes de equivalência, constrói REST + Next.js"
 model: claude-sonnet-4-6
 tools:
-  - codebase
+  - search/codebase
   - search
-  - editFiles
-  - runCommands
+  - edit/editFiles
+  - createFiles
+  - execute/getTerminalOutput,execute/runInTerminal,read/terminalLastCommand,read/terminalSelection
   - runTests
-  - fetch
+  - web/fetch
+  - search/usages
+  - findFiles
 ---
 
 # @builder-agent

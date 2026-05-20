@@ -1,8 +1,8 @@
 ---
 description: "Extrai regras de negócio de um programa Natural lendo blocos IF/THEN/ELSE e confirmando com documentação."
-mode: ask
+agent: agent
 model: claude-opus-4-7
-tools: ['codebase', 'search']
+tools: ['search/codebase', 'search', 'edit/editFiles', 'createFiles', 'execute/getTerminalOutput','execute/runInTerminal','read/terminalLastCommand','read/terminalSelection']
 ---
 
 # /extract-business-rules

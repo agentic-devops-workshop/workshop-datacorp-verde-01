@@ -1,8 +1,8 @@
 ---
 description: "Rascunha um Arquitetura Decision Record para uma escolha específica de design que a equipe está fazendo."
-mode: ask
+mode: agent
 model: claude-opus-4-7
-tools: ['codebase', 'search']
+tools: ['codebase', 'search', 'editFiles', 'createFiles', 'runCommands']
 ---
 
 # /generate-adr
