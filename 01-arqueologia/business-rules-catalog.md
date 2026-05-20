@@ -1,118 +1,44 @@
 <!-- markdownlint-disable MD013 MD025 MD026 MD028 MD029 MD034 MD040 MD051 MD060 -->
 
 # Catálogo de Regras de Negócio — SIFAP Legado
-
-![ESTÁGIO 01 Arqueologia](https://img.shields.io/badge/ESTÁGIO-01%20Arqueologia-F25022?style=for-the-badge) ![TIPO Worksheet](https://img.shields.io/badge/TIPO-Worksheet-1A1A1A?style=for-the-badge) ![PREENCHA Durante S1](https://img.shields.io/badge/PREENCHA-Durante%20S1-737373?style=for-the-badge)
-
-> 🗺 **Você está aqui:** [Kit PT-BR](../README.md) → [Estágio 1](README.md) → **business-rules-catalog**
-
-> **Para quem é isto?** Este é um **artefato preenchido pelo time** durante o Estágio 1 (Arqueologia).
->
-> **O que você terá ao final do estágio:**
->
-> 1. Este documento totalmente preenchido com os dados reais do legado SIFAP
-> 2. Rastreabilidade para `01-arqueologia/legado-sifap/` (programas `.NSN` e DDMs)
-> 3. Base de evidência usada nas EARS do Estágio 2 (`source_legacy:`)
->
-> 📘 **Guia passo a passo:** [`GUIDE.md`](GUIDE.md).
-
-
-> Registre aqui todas as regras de negócio extraídas do código Natural/Adabas.
-> Cada regra precisa ter rastreabilidade até o código-fonte.
->
-> **REGRA DURA:** linhas com `Programa Fonte` vazio são **inválidas** e não contam para o gate do Estágio 2. Use o formato `01-arqueologia/legado-sifap/natural-programs/ARQUIVO.NSN#L<inicio>-L<fim>` sempre que possível. Mínimo aceito: nome do arquivo .NSN.
-
-## Como pensar em "regra de negócio"
-
-O que conta:
-
-- Um `IF` que decide algo no domínio (ex.: _"se a UF é do Nordeste e o programa é Seca, valor base × 1.2"_)
-- Uma constante numérica sem explicação (ex.: `0.075` num cálculo de imposto)
-- Uma transição de status com regra (ex.: _"só de A para S, nunca de I para A"_)
-- Um tratamento especial para um caso (ex.: _"se o CPF começa com 999, é teste"_)
-
-O que NÃO conta: paginação de relatório, formatação de saída, manipulação de cursor Adabas, abertura de arquivo. Ignore esses detalhes de implementação.
-
-## Níveis de Risco
-
-| Nível       | Descrição                                                     |
-| ----------- | ------------------------------------------------------------- |
-| **CRÍTICO** | Regra financeira ou de segurança — erro causa prejuízo direto |
-| **ALTO**    | Regra de negócio central — afeta fluxo principal              |
-| **MÉDIO**   | Regra de validação ou formatação — afeta qualidade dos dados  |
-| **BAIXO**   | Regra de apresentação ou conveniência — impacto limitado      |
-
-## Regras Encontradas
-
-| ID     | Regra de Negócio | Programa Fonte | Campos DDM | Nível de Risco | Notas |
-| ------ | ---------------- | -------------- | ---------- | -------------- | ----- |
-| BR-001 |                  |                |            |                |       |
-| BR-002 |                  |                |            |                |       |
-| BR-003 |                  |                |            |                |       |
-| BR-004 |                  |                |            |                |       |
-| BR-005 |                  |                |            |                |       |
-| BR-006 |                  |                |            |                |       |
-| BR-007 |                  |                |            |                |       |
-| BR-008 |                  |                |            |                |       |
-| BR-009 |                  |                |            |                |       |
-| BR-010 |                  |                |            |                |       |
-| BR-011 |                  |                |            |                |       |
-| BR-012 |                  |                |            |                |       |
-| BR-013 |                  |                |            |                |       |
-| BR-014 |                  |                |            |                |       |
-| BR-015 |                  |                |            |                |       |
-
-> Adicione mais linhas conforme necessário. Lembre-se: existem **10 regras escondidas** no código!
-
-## Exemplo de linha bem preenchida
-
-| ID     | Regra de Negócio                                                                        | Programa Fonte                                   | Campos DDM                                                               | Nível de Risco | Notas                                      |
-| ------ | --------------------------------------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------ | -------------- | ------------------------------------------ |
-| BR-013 | Desconto total não pode exceder 30% do valor bruto, exceto descontos judiciais (tipo J) | `01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN#L142-L148` | `PAGAMENTO.VLR-BRUTO`, `PAGAMENTO.VLR-TOTAL-DSCT`, `PAGAMENTO.TIPO-DSCT` | CRÍTICO        | Regra financeira. Tipo 'J' = exceção legal |
-
-## Regras por Categoria
-
-### Cálculos Financeiros
-
-<!-- Liste aqui as regras relacionadas a cálculos de valores, benefícios, etc. -->
-
-### Validações de Status
-
-<!-- Liste aqui as regras de transição de status (A, S, C, I, D) -->
-
-### Regras de Autorização
-
-<!-- Liste aqui as regras de quem pode fazer o quê -->
-
-### Regras de Negócio Temporais
-
-<!-- Liste aqui regras com prazos, datas-limite, períodos -->
-
-## Resumo Estatístico
-
-- Total de regras encontradas: \_\_\_
-- Regras críticas: \_\_\_
-- Regras com duplicação: \_\_\_
-- Regras sem documentação (escondidas): \_\_\_
-
----
-
-### Continuar a leitura
-
-<table width="100%">
-<tr>
-<td width="50%" valign="top" align="left">
-<sub><strong>← ANTERIOR</strong></sub><br/>
-<a href="GUIDE.md"><strong>GUIDE do Estágio 1</strong></a><br/>
-<sub>Passo a passo do estágio.</sub>
-</td>
-<td width="50%" valign="top" align="right">
-<sub><strong>PRÓXIMO →</strong></sub><br/>
-<a href="dependency-map.md"><strong>dependency-map.md</strong></a><br/>
-<sub>Mapa de quem chama quem.</sub>
-</td>
-</tr>
-</table>
-
-<sub>↑ <a href="README.md">Voltar ao Kit PT-BR</a></sub>
-
+| ID | Regra de Negócio | Programa Fonte | Campos DDM | Nível de Risco | Notas |
+| --- | --- | --- | --- | --- | --- |
+| BR-001 | Beneficiário só pode ter benefício calculado se estiver com status A (ativo). | 01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN#L160-L163 | BENEFICIARIO.STATUS | ALTO | Gate de elegibilidade. |
+| BR-002 | Fator regional usa tabela quando COD-REGIAO está entre 1 e 25; fora disso aplica 1.0000. | 01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN#L180-L184 | BENEFICIARIO.COD-REGIAO | ALTO | Impacto direto no valor. |
+| BR-003 | Faixas de renda definem fator multiplicador do benefício: 300/600/1000/1500/9999.99 com 1.0000/0.8500/0.7000/0.5500/0.4000. | 01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN#L120-L129 | BENEFICIARIO.RENDA-FAMILIAR | CRÍTICO | Constantes financeiras. |
+| BR-004 | Fator familiar aumenta por degraus conforme número de dependentes (0, até 2, até 4, acima de 4). | 01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN#L187-L198 | BENEFICIARIO.NUM-DEPENDENTES | ALTO | Usa 0.0500, 0.0300 e 0.0200. |
+| BR-005 | Fator etário: >=65 aplica 1.1500, >=60 aplica 1.1000, <18 aplica 1.0500, demais 1.0000. | 01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN#L207-L218 | BENEFICIARIO.DT-NASCIMENTO | ALTO | Regra de cálculo por idade. |
+| BR-006 | Em dezembro (mês 12), pagamento muda para tipo D e inclui valor adicional de 13o. | 01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN#L242-L249 | PAGAMENTO.TIPO-PGTO, PAGAMENTO.VLR-BRUTO | CRÍTICO | Regra sazonal financeira. |
+| BR-007 | Em dezembro, programa tipo A recebe abono natalino de 15% sobre o benefício. | 01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN#L251-L260 | PROGRAMA-SOCIAL.TIPO, PAGAMENTO.VLR-ABONO | CRÍTICO | Constante 0.15. |
+| BR-008 | Valor líquido não pode ser negativo; mínimo permitido é zero. | 01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN#L267-L269 | PAGAMENTO.VLR-LIQUIDO | CRÍTICO | Piso financeiro. |
+| BR-009 | Desconto simplificado de 3% é aplicado apenas quando valor bruto excede 500.00. | 01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN#L318-L321 | PAGAMENTO.VLR-BRUTO, PAGAMENTO.VLR-DESCONTO | MÉDIO | Regra simplificada. |
+| BR-010 | Contribuição social obrigatória é progressiva por faixas: 500/1000/2000/9999.99 com 3%/5%/7%/9%. | 01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN#L58-L65 | PAGAMENTO.VLR-BRUTO | CRÍTICO | Alíquotas hardcoded. |
+| BR-011 | Teto máximo de descontos é 30% do valor bruto. | 01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN#L102-L105 | PAGAMENTO.VLR-BRUTO, PAGAMENTO.VLR-DESCONTO | CRÍTICO | Constante 0.30. |
+| BR-012 | Desconto judicial (tipo J) não sofre teto de 30%. | 01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN#L123-L134 | BENEFICIARIO.DESCONTOS.TIPO-DSCT, BENEFICIARIO.DESCONTOS.VLR-DSCT, BENEFICIARIO.DESCONTOS.PCT-DSCT | CRÍTICO | Exceção legal explícita. |
+| BR-013 | Desconto sindical (tipo S) é fixo de 1% sobre o bruto. | 01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN#L149-L150 | BENEFICIARIO.DESCONTOS.TIPO-DSCT, PAGAMENTO.VLR-BRUTO | MÉDIO | Constante 0.01. |
+| BR-014 | Desconto cadastrado só é aplicado dentro da vigência entre data início e data fim. | 01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN#L112-L117 | BENEFICIARIO.DESCONTOS.DT-INICIO-DSCT, BENEFICIARIO.DESCONTOS.DT-FIM-DSCT | ALTO | Regra temporal. |
+| BR-015 | Pagamento já corrigido (IND-CORRIGIDO = S) não entra em nova correção retroativa. | 01-arqueologia/legado-sifap/natural-programs/CALCCORR.NSN#L140-L142 | PAGAMENTO.IND-CORRIGIDO | ALTO | Evita recorreção. |
+| BR-016 | Correção retroativa só é persistida quando a diferença calculada é positiva. | 01-arqueologia/legado-sifap/natural-programs/CALCCORR.NSN#L156-L166 | PAGAMENTO.VLR-BRUTO, PAGAMENTO.VLR-CORRECAO | ALTO | Não reduz valor via rotina. |
+| BR-017 | Índices IPCA mensais tabelados (ex.: 0.0075 até 0.0079) compõem o fator de correção. | 01-arqueologia/legado-sifap/natural-programs/CALCCORR.NSN#L57-L96 | PAGAMENTO.VLR-BRUTO | CRÍTICO | Constantes econômicas sem fonte local. |
+| BR-018 | No lote mensal, pagamento duplicado na mesma competência para o mesmo CPF é ignorado. | 01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L200-L208 | PAGAMENTO.CPF-BENEF, PAGAMENTO.COMPETENCIA | ALTO | Regra anti-duplicidade. |
+| BR-019 | No lote mensal, só gera pagamento para beneficiário ativo e programa ativo. | 01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L195-L227 | BENEFICIARIO.STATUS, PROGRAMA-SOCIAL.STATUS-PROG | ALTO | Gate de processamento. |
+| BR-020 | Na conciliação, diferença acima de 0.01 entre valor SIFAP e banco é divergência. | 01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L160-L169 | PAGAMENTO.VLR-LIQUIDO | CRÍTICO | Tolerância monetária. |
+| BR-021 | Retorno bancário define transição de status: 00 para P, 01 para D, 02 para E. | 01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L171-L191 | PAGAMENTO.COD-RETORNO, PAGAMENTO.STATUS-PGTO | ALTO | Regra de estado operacional. |
+| BR-022 | Região 99 concede elegibilidade imediata e encerra validação. | 01-arqueologia/legado-sifap/natural-programs/VALELEG.NSN#L107-L111 | BENEFICIARIO.COD-REGIAO | ALTO | Caso especial de domínio. |
+| BR-023 | Beneficiário com status diferente de A é inelegível, com motivo por status S, C/D ou I. | 01-arqueologia/legado-sifap/natural-programs/VALELEG.NSN#L116-L132 | BENEFICIARIO.STATUS | ALTO | Bloqueio por situação cadastral. |
+| BR-024 | Idade fora da faixa do programa (IDADE-MIN/IDADE-MAX) torna beneficiário inelegível. | 01-arqueologia/legado-sifap/natural-programs/VALELEG.NSN#L140-L151 | PROGRAMA-SOCIAL.IDADE-MIN, PROGRAMA-SOCIAL.IDADE-MAX, BENEFICIARIO.DT-NASCIMENTO | ALTO | Critério etário. |
+| BR-025 | Renda familiar acima de RENDA-MAX do programa torna beneficiário inelegível. | 01-arqueologia/legado-sifap/natural-programs/VALELEG.NSN#L158-L162 | BENEFICIARIO.RENDA-FAMILIAR, PROGRAMA-SOCIAL.RENDA-MAX | CRÍTICO | Corte financeiro de elegibilidade. |
+| BR-026 | Programa tipo A exige documentação completa e, quando renda > 600.00, exige pelo menos 1 dependente. | 01-arqueologia/legado-sifap/natural-programs/VALELEG.NSN#L171-L181 | PROGRAMA-SOCIAL.TIPO, BENEFICIARIO.RENDA-FAMILIAR, BENEFICIARIO.NUM-DEPENDENTES, BENEFICIARIO.DOCUMENTOS-OK | ALTO | Regra composta assistencial. |
+| BR-027 | Programa tipo P exige idade mínima de 60 anos. | 01-arqueologia/legado-sifap/natural-programs/VALELEG.NSN#L185-L189 | PROGRAMA-SOCIAL.TIPO, BENEFICIARIO.DT-NASCIMENTO | ALTO | Regra previdenciária. |
+| BR-028 | Programa tipo T exige idade entre 16 e 65 anos. | 01-arqueologia/legado-sifap/natural-programs/VALELEG.NSN#L192-L196 | PROGRAMA-SOCIAL.TIPO, BENEFICIARIO.DT-NASCIMENTO | ALTO | Regra de faixa laboral. |
+| BR-029 | COD-ELEGIBILIDADE com marcador R exige NIS cadastrado; com marcador D exige dependentes. | 01-arqueologia/legado-sifap/natural-programs/VALELEG.NSN#L226-L239 | PROGRAMA-SOCIAL.COD-ELEGIBILIDADE, BENEFICIARIO.NIS, BENEFICIARIO.NUM-DEPENDENTES | ALTO | Decodificação por caracteres da regra. |
+| BR-030 | Inclusão cadastral define status inicial A, mas idade > 75 sobrescreve para S. | 01-arqueologia/legado-sifap/natural-programs/CADBENEF.NSN#L162-L168 | BENEFICIARIO.STATUS, BENEFICIARIO.DT-NASCIMENTO | ALTO | Transição automática de status. |
+| BR-031 | Cadastro de dependentes é bloqueado para beneficiário cancelado/desligado e limita total a 5 dependentes. | 01-arqueologia/legado-sifap/natural-programs/CADDEPEND.NSN#L56-L66 | BENEFICIARIO.STATUS, BENEFICIARIO.NUM-DEPENDENTES | MÉDIO | Regra de limite e bloqueio cadastral. |
+| BR-032 | No cadastro de programa, VLR-BASE é recalculado com fator K = 1 + (FATOR-REAJUSTE x 0.347215). | 01-arqueologia/legado-sifap/natural-programs/CADPROG.NSN#L87-L88 | PROGRAMA-SOCIAL.VLR-BASE, PROGRAMA-SOCIAL.FATOR-REAJUSTE | CRÍTICO | Constante numérica sem explicação no legado. |
+| BR-033 | Status cadastral válido deve estar no conjunto A, S, C, I, D. | 01-arqueologia/legado-sifap/natural-programs/VALBENEF.NSN#L164-L168 | BENEFICIARIO.STATUS | ALTO | Domínio de status aceito. |
+| BR-034 | CPF com todos dígitos iguais é inválido, exceto prefixo 000 tratado como exceção. | 01-arqueologia/legado-sifap/natural-programs/VALBENEF.NSN#L195-L201 | BENEFICIARIO.CPF | ALTO | Tratamento especial de CPF de teste. |
+| BR-035 | Prefixos especiais de CPF (000,001,002,010,011,099,100,999) forçam validação documental positiva. | 01-arqueologia/legado-sifap/natural-programs/VALDOCS.NSN#L49-L56 | BENEFICIARIO.CPF, BENEFICIARIO.DOCUMENTOS-OK | CRÍTICO | Bypass explícito de validação. |
+| BR-036 | Ao detectar prefixo especial, rotina zera erros e define resultado válido. | 01-arqueologia/legado-sifap/natural-programs/VALDOCS.NSN#L174-L179 | BENEFICIARIO.CPF, BENEFICIARIO.DOCUMENTOS-OK | CRÍTICO | Pode mascarar inconsistências documentais. |
+| BR-037 | Consolidação regional agrupa COD-REGIAO em 5 macro-faixas: 1-5, 6-10, 11-15, 16-20 e demais. | 01-arqueologia/legado-sifap/natural-programs/BATCHREL.NSN#L117-L130 | BENEFICIARIO.COD-REGIAO | MÉDIO | Regra territorial de consolidação. |
+| BR-038 | Totalização do bruto no consolidado aplica arredondamento com +0.005 antes de acumular. | 01-arqueologia/legado-sifap/natural-programs/BATCHREL.NSN#L137-L140 | PAGAMENTO.VLR-BRUTO | MÉDIO | Arredondamento diferente de truncamento. |
+| BR-039 | Cadastro de beneficiário impede inclusão se já existir CPF e impede alteração se CPF não existir. | 01-arqueologia/legado-sifap/natural-programs/CADBENEF.NSN#L143-L151 | BENEFICIARIO.CPF | ALTO | Regra de integridade de ciclo cadastral. |
