@@ -1,109 +1,52 @@
-<!-- markdownlint-disable MD013 MD025 MD026 MD028 MD029 MD034 MD040 MD051 MD060 -->
-
 # Glossário do SIFAP Legado
-
-![ESTÁGIO 01 Arqueologia](https://img.shields.io/badge/ESTÁGIO-01%20Arqueologia-F25022?style=for-the-badge) ![TIPO Worksheet](https://img.shields.io/badge/TIPO-Worksheet-1A1A1A?style=for-the-badge) ![PREENCHA Durante S1](https://img.shields.io/badge/PREENCHA-Durante%20S1-737373?style=for-the-badge)
-
-> 🗺 **Você está aqui:** [Kit PT-BR](../README.md) → [Estágio 1](README.md) → **glossary**
-
-> **Para quem é isto?** Este é um **artefato preenchido pelo time** durante o Estágio 1 (Arqueologia).
->
-> **O que você terá ao final do estágio:**
->
-> 1. Este documento totalmente preenchido com os dados reais do legado SIFAP
-> 2. Rastreabilidade para `01-arqueologia/legado-sifap/` (programas `.NSN` e DDMs)
-> 3. Base de evidência usada nas EARS do Estágio 2 (`source_legacy:`)
->
-> 📘 **Guia passo a passo:** [`GUIDE.md`](GUIDE.md).
-
-
-> Preencha esta tabela com todos os termos, abreviações e siglas encontrados no código Natural/Adabas.
-> **Meta: no mínimo 30 termos.**
-
-## Por que isso importa
-
-Sistemas legados têm vocabulário próprio que ninguém documenta em lugar nenhum — só está no nome das variáveis. Se o time do Estágio 2 não souber o que `DSCT`, `BENF`, `PE` ou `CTC` significam, vai escrever uma spec sobre o que ele _acha_ que isso significa. Glossário é o que evita esse desencontro.
-
-## Como preencher
-
-- **Termo**: a abreviação ou sigla exatamente como aparece no código
-- **Expansão**: o significado completo do termo
-- **Programa**: em qual arquivo `.NSN` ou `.ddm` o termo foi encontrado
-- **Contexto**: breve explicação de como/onde o termo é usado
-
-## Dica de extração
-
-Prompt útil no Copilot Chat (cole o conteúdo de 2–3 arquivos `.NSN` no chat antes):
-
-> _"Liste todas as abreviações e siglas usadas neste código Natural. Para cada uma, sugira a expansão e marque com 'CONFIRMADO' ou 'HIPÓTESE'."_
 
 ## Termos encontrados
 
-| #   | Termo | Expansão | Programa | Contexto |
-| --- | ----- | -------- | -------- | -------- |
-| 1   |       |          |          |          |
-| 2   |       |          |          |          |
-| 3   |       |          |          |          |
-| 4   |       |          |          |          |
-| 5   |       |          |          |          |
-| 6   |       |          |          |          |
-| 7   |       |          |          |          |
-| 8   |       |          |          |          |
-| 9   |       |          |          |          |
-| 10  |       |          |          |          |
-| 11  |       |          |          |          |
-| 12  |       |          |          |          |
-| 13  |       |          |          |          |
-| 14  |       |          |          |          |
-| 15  |       |          |          |          |
-| 16  |       |          |          |          |
-| 17  |       |          |          |          |
-| 18  |       |          |          |          |
-| 19  |       |          |          |          |
-| 20  |       |          |          |          |
-| 21  |       |          |          |          |
-| 22  |       |          |          |          |
-| 23  |       |          |          |          |
-| 24  |       |          |          |          |
-| 25  |       |          |          |          |
-| 26  |       |          |          |          |
-| 27  |       |          |          |          |
-| 28  |       |          |          |          |
-| 29  |       |          |          |          |
-| 30  |       |          |          |          |
-
-> Adicione mais linhas conforme necessário. Não se limite a 30!
-
-## Exemplo de linha bem preenchida
-
-| #   | Termo  | Expansão | Programa                        | Contexto                                                                                                         |
-| --- | ------ | -------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| 1   | `DSCT` | Desconto | `CALCDSCT.NSN`, `PAGAMENTO.ddm` | Tipo de dedução aplicada sobre valor bruto do pagamento. Tipos: 'J' (judicial), 'I' (imposto), 'T' (trabalhista) |
+| # | Termo | Expansão | Programa | Contexto |
+| --- | --- | --- | --- | --- |
+| 1 | SIFAP | Sistema de Fiscalização e Administração de Pagamentos | [01-arqueologia/legado-sifap/README.md](01-arqueologia/legado-sifap/README.md) | Sistema legado principal de benefícios sociais. |
+| 2 | NSN | Fonte de programa Natural | [01-arqueologia/legado-sifap/natural-programs/README.md](01-arqueologia/legado-sifap/natural-programs/README.md) | Extensão dos programas de negócio legados. |
+| 3 | DDM | Data Definition Module | [01-arqueologia/legado-sifap/adabas-ddms/README.md](01-arqueologia/legado-sifap/adabas-ddms/README.md) | Define estrutura de dados no Adabas. |
+| 4 | Adabas | Banco de dados legado mainframe | [01-arqueologia/legado-sifap/README.md](01-arqueologia/legado-sifap/README.md) | Base de dados operacional do sistema. |
+| 5 | MU | Multiple Value | [01-arqueologia/legado-sifap/adabas-ddms/PROGRAMA-SOCIAL.ddm](01-arqueologia/legado-sifap/adabas-ddms/PROGRAMA-SOCIAL.ddm) | Campo multivalorado no modelo Adabas. |
+| 6 | PE | Periodic Group | [01-arqueologia/legado-sifap/adabas-ddms/BENEFICIARIO.ddm](01-arqueologia/legado-sifap/adabas-ddms/BENEFICIARIO.ddm) | Grupo repetitivo de campos (ocorrências). |
+| 7 | FNR | File Number | [01-arqueologia/legado-sifap/README.md](01-arqueologia/legado-sifap/README.md) | Identificador de arquivo no Adabas. |
+| 8 | CPF | Cadastro de Pessoa Física | [01-arqueologia/legado-sifap/natural-programs/VALBENEF.NSN](01-arqueologia/legado-sifap/natural-programs/VALBENEF.NSN) | Identificador principal do beneficiário. |
+| 9 | NIS | Número de Identificação Social | [01-arqueologia/legado-sifap/natural-programs/VALELEG.NSN](01-arqueologia/legado-sifap/natural-programs/VALELEG.NSN) | Usado em elegibilidade e validações. |
+| 10 | UF | Unidade Federativa | [01-arqueologia/legado-sifap/natural-programs/VALBENEF.NSN](01-arqueologia/legado-sifap/natural-programs/VALBENEF.NSN) | Estado do beneficiário, validado por tabela. |
+| 11 | BENEF | Beneficiário | [01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN](01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN) | Pessoa processada para recebimento do benefício. |
+| 12 | BENF | Benefício | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Valor mensal calculado para pagamento. |
+| 13 | DEP | Dependente | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Influencia fator familiar no cálculo. |
+| 14 | PROG | Programa Social | [01-arqueologia/legado-sifap/natural-programs/CADPROG.NSN](01-arqueologia/legado-sifap/natural-programs/CADPROG.NSN) | Cadastro de regras e parâmetros de programa. |
+| 15 | COD-PROGRAMA | Código do programa social | [01-arqueologia/legado-sifap/adabas-ddms/PROGRAMA-SOCIAL.ddm](01-arqueologia/legado-sifap/adabas-ddms/PROGRAMA-SOCIAL.ddm) | Chave para vincular beneficiário a regras. |
+| 16 | VLR | Valor monetário | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Prefixo de campos financeiros. |
+| 17 | VLR-BRUTO | Valor bruto | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Valor antes de descontos. |
+| 18 | VLR-LIQUIDO | Valor líquido | [01-arqueologia/legado-sifap/adabas-ddms/PAGAMENTO.ddm](01-arqueologia/legado-sifap/adabas-ddms/PAGAMENTO.ddm) | Valor final após descontos. |
+| 19 | DSCT | Desconto | [01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN](01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN) | Dedução aplicada ao pagamento. |
+| 20 | VLR-DESCONTO | Valor de desconto | [01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN](01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN) | Soma de descontos do pagamento. |
+| 21 | PCT | Percentual | [01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN](01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN) | Alíquota percentual em cálculos. |
+| 22 | FATOR-REG | Fator regional | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Multiplicador por região. |
+| 23 | FATOR-FAM | Fator familiar | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Multiplicador conforme dependentes. |
+| 24 | FATOR-RND | Fator de renda | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Multiplicador por faixa de renda. |
+| 25 | FATOR-IDADE | Fator etário | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Multiplicador por faixa de idade. |
+| 26 | FATOR-REAJ | Fator de reajuste | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Índice de reajuste aplicado ao valor. |
+| 27 | FATOR-K | Fator de correção especial | [01-arqueologia/legado-sifap/natural-programs/CADPROG.NSN](01-arqueologia/legado-sifap/natural-programs/CADPROG.NSN) | Ajuste adicional com documentação parcial. |
+| 28 | COMPETENCIA | Referência AAAAMM | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Mês/ano do ciclo de cálculo e pagamento. |
+| 29 | DT | Data | [01-arqueologia/legado-sifap/adabas-ddms/BENEFICIARIO.ddm](01-arqueologia/legado-sifap/adabas-ddms/BENEFICIARIO.ddm) | Prefixo de campos de data. |
+| 30 | HR | Hora | [01-arqueologia/legado-sifap/adabas-ddms/AUDITORIA.ddm](01-arqueologia/legado-sifap/adabas-ddms/AUDITORIA.ddm) | Prefixo de campos de horário. |
+| 31 | BATCH | Processamento em lote | [01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN](01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN) | Execução massiva de rotinas mensais. |
+| 32 | BATCHPGT | Batch de geração de pagamentos | [01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN](01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN) | Gera pagamentos para beneficiários ativos. |
+| 33 | BATCHCON | Batch de conciliação | [01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN](01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN) | Concilia retorno bancário com pagamentos internos. |
+| 34 | CNAB 240 | Layout bancário de arquivos | [01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN](01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN) | Formato de remessa e retorno bancário. |
+| 35 | SIAFI | Sistema Integrado de Administração Financeira | [01-arqueologia/legado-sifap/README.md](01-arqueologia/legado-sifap/README.md) | Sistema externo para integração financeira. |
+| 36 | AUDITORIA | Trilha de eventos | [01-arqueologia/legado-sifap/adabas-ddms/AUDITORIA.ddm](01-arqueologia/legado-sifap/adabas-ddms/AUDITORIA.ddm) | Registro de ações e ocorrências operacionais. |
+| 37 | RELAUDIT | Relatório de auditoria | [01-arqueologia/legado-sifap/natural-programs/RELAUDIT.NSN](01-arqueologia/legado-sifap/natural-programs/RELAUDIT.NSN) | Emite trilha de auditoria por filtros. |
+| 38 | STATUS-PGTO | Situação do pagamento | [01-arqueologia/legado-sifap/adabas-ddms/PAGAMENTO.ddm](01-arqueologia/legado-sifap/adabas-ddms/PAGAMENTO.ddm) | Estado do pagamento no ciclo operacional. |
+| 39 | COD-RETORNO | Código de retorno bancário | [01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN](01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN) | Indica sucesso, devolução ou erro no retorno. |
+| 40 | ABONO | Parcela adicional | [01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN](01-arqueologia/legado-sifap/natural-programs/CALCBENF.NSN) | Valor extra em condições específicas (ex.: dezembro). |
 
 ## Observações
 
-- Anote aqui qualquer padrão de nomenclatura que o time identificou:
-- Convenções de prefixo/sufixo encontradas:
-- Termos ambíguos que precisam de validação com especialista:
-
----
-
-### Continuar a leitura
-
-<table width="100%">
-<tr>
-<td width="50%" valign="top" align="left">
-<sub><strong>← ANTERIOR</strong></sub><br/>
-<a href="GUIDE.md"><strong>GUIDE do Estágio 1</strong></a><br/>
-<sub>Passo a passo do estágio.</sub>
-</td>
-<td width="50%" valign="top" align="right">
-<sub><strong>PRÓXIMO →</strong></sub><br/>
-<a href="business-rules-catalog.md"><strong>business-rules-catalog.md</strong></a><br/>
-<sub>Catálogo de regras.</sub>
-</td>
-</tr>
-</table>
-
-<sub>↑ <a href="README.md">Voltar ao Kit PT-BR</a></sub>
-
+- Convenções de prefixo identificadas: VLR, DT, HR, COD, IND, SIT e STATUS.
+- Termos ambíguos para validação com especialista: FATOR-K e regras detalhadas de alguns códigos de retorno bancário.
+- Há forte presença de abreviações históricas dos anos 90, exigindo rastreabilidade por programa/DDM durante a modernização.
