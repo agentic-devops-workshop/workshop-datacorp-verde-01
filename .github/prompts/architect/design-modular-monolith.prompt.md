@@ -1,8 +1,8 @@
 ---
 description: "Produz um design de alto nível para o Modular Monolith com base nos bounded contexts e na spec EARS."
-mode: ask
+mode: agent
 model: claude-opus-4-7
-tools: ['codebase', 'search']
+tools: ['codebase', 'search', 'editFiles', 'createFiles', 'runCommands']
 ---
 
 # /design-modular-monolith

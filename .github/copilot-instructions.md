@@ -34,28 +34,59 @@ Este repositório pertence a uma equipe do workshop que está modernizando o leg
 uma stack moderna. O workspace de referência fica em
 [`workshop-legacy-modernization-datacorp`](https://github.com/paulasilvatech/workshop-legacy-modernization-datacorp).
 
+### Status Atual: Estágio 1 completo → Estágio 2 (Especificação)
+
+O Estágio 1 (Arqueologia Digital) foi concluído com 150 regras de negócio extraídas, 23 mistérios catalogados e 45 termos no glossário. Todos os 15 programas Natural e 4 DDMs foram analisados.
+
+## Domínio SIFAP — Conhecimento Essencial
+
+> Estas são regras de domínio que impactam TODA geração de código. Detalhes em [`01-arqueologia/business-rules-catalog.md`](../01-arqueologia/business-rules-catalog.md).
+
+### Entidades Centrais
+
+| Entidade | DDM | Relacionamento |
+|----------|-----|----------------|
+| Beneficiário | BENEFICIARIO (hub — 11 progs acessam) | 1:N Pagamentos, 1:N Dependentes (PE group→tabela), N:1 Programa Social |
+| Pagamento | PAGAMENTO | Ciclo: G(gerado) → P(pago) / D(devolvido) / E(erro). Sem transição reversa. |
+| Programa Social | PROGRAMA-SOCIAL | Tipos: A(assistencial), P(previdenciário), T(trabalho). Status A(ativo) ou I(inativo). |
+| Auditoria | AUDITORIA | Ações: IN/AL/CO/CN/DV/EX. Trilha obrigatória. |
+
+### Fórmula de Benefício (Core — impacta toda geração financeira)
+
+```
+VLR-BENEFICIO = VLR-BASE × FATOR-REG × FATOR-FAM × FATOR-RND × FATOR-IDADE × (1 + FATOR-REAJ)
+```
+
+- Resultado TRUNCADO em 2 decimais (×100, int, ÷100) — **não arredondar**
+- Dezembro: adiciona 13° + abono 15% (tipo 'A')
+- Desconto judicial (tipo 'J') ignora teto de 30%
+
+### Regras Invioláveis na Modernização
+
+- CPF sempre mascarado em logs e UIs (LGPD) — formato `***.***. XXX-XX`
+- `source_legacy:` obrigatório em toda EARS — sem exceção
+- Desconto judicial NÃO pode ter teto aplicado (precedência legal)
+- Ordenação por CPF no batch pode ter dependentes downstream — validar antes de remover
+- NUM-DEPENDENTES é redundante mas usado no cálculo — na modernização, derivar do COUNT da tabela
+
+### Decisões Pendentes (requerem validação com negócio)
+
+1. **Reajuste duplo**: Fator K (constante 0.347215) + (1+FATOR-REAJ) mensal — intencional ou bug?
+2. **Desconto batch vs online**: 3% fixo (BATCHPGT) vs 4 faixas progressivas (CALCDSCT) — unificar para qual?
+3. **Bypass região 99**: manter como exceção controlada ou eliminar?
+4. **Prefixos especiais CPF**: 8 prefixos contornam validação — teste ou caso legítimo?
+
+### Artefatos de Referência (Stage 1 — fontes de verdade)
+
+- [`01-arqueologia/business-rules-catalog.md`](../01-arqueologia/business-rules-catalog.md) — 150 regras com linhas exatas (BR-001 a BR-150)
+- [`01-arqueologia/discovery-report.md`](../01-arqueologia/discovery-report.md) — síntese executiva + recomendações de migração
+- [`01-arqueologia/glossary.md`](../01-arqueologia/glossary.md) — 45 termos de domínio (use para naming em Java/TS)
+- [`01-arqueologia/mysteries-found.md`](../01-arqueologia/mysteries-found.md) — 23 mistérios com hipóteses e risco
+- [`01-arqueologia/dependency-map.md`](../01-arqueologia/dependency-map.md) — call graph e acoplamento entre programas
+
 ## Duas Camadas de Agentes — Ambas Obrigatórias
 
-Este kit inclui **duas camadas complementares de agentes**. Elas não são duplicadas; cobrem eixos ortogonais (role × stage). Use ambas.
-
-```mermaid
-flowchart TB
-    classDef person fill:#E5F6FD,stroke:#00A4EF,color:#0A0A0A
-    classDef stage fill:#FFF7E0,stroke:#FFB900,color:#0A0A0A
-    classDef tool fill:#F1F8E3,stroke:#7FBA00,color:#0A0A0A
-
-    P1[Pessoa · Par 1<br/>2 personas]:::person
-    P2[Pessoa · Par 2<br/>2 personas]:::person
-    P3[Pessoa · Par 3<br/>2 personas]:::person
-    P4[Pessoa · Par 4<br/>2 personas]:::person
-    P5[Pessoa · Par 5<br/>2 personas]:::person
-
-    PK[05-personas/NN-*/<br/>agente Copilot + prompts + skills + MCP<br/>por persona, o dia todo]:::tool
-    AK[06-agentes-de-estagio/<br/>@archaeologist · @architect ·<br/>@builder · @evolution<br/>por estágio, com tempo definido]:::tool
-
-    P1 & P2 & P3 & P4 & P5 -- "copiar os 2 kits próprios para .github/" --> PK
-    P1 & P2 & P3 & P4 & P5 -- "selecionar no Copilot chat para o estágio atual" --> AK
-```
+Este kit inclui **duas camadas complementares de agentes**. Elas cobrem eixos ortogonais (role × stage). Use ambas.
 
 ### `05-personas/NN-*/` — instalado uma vez, roda o dia todo
 
@@ -71,13 +102,11 @@ flowchart TB
 - Ativado no Copilot Chat: abra o painel de chat, clique no seletor de agente, escolha o agente do estágio. Cole o prompt de abertura do README daquele kit.
 - O agente orienta a **coordenação da equipe** durante o estágio: quais artefatos produzir, como percorrer o código legado, quando escalar etc.
 
-### Como elas se combinam em uma janela típica de 30 minutos
+### Como elas se combinam
 
-1. **Você** abriu o Copilot Chat com seu persona-kit carregado → slash commands como `/ears-convert` funcionam porque sua pasta `.github/prompts/` está populada.
-2. **Sua equipe** selecionou o agente de estágio `@archaeologist` → o chat entra em modo de arqueologia, guiando a leitura do legado.
-3. Você pede ao `@archaeologist` para resumir o que `BATCHPGT.NSN` faz → ele responde no enquadramento de arqueologia.
-4. Em seguida, você roda `/ears-convert` sobre suas descobertas → seu persona-kit (RE) assume e gera YAML com linhas `source_legacy:`.
-5. As duas camadas trabalharam juntas. Nenhuma é opcional.
+1. Persona-kit carregado → slash commands (`/ears-convert`, `/spec`) funcionam.
+2. Agente de estágio selecionado (`@architect` para Estágio 2) → guia coordenação.
+3. Ambas as camadas trabalham juntas. Nenhuma é opcional.
 
 ## Stack-Alvo
 
@@ -135,9 +164,14 @@ flowchart TB
 - Estratégia de branch: uma branch por spec, nomeada `spec/<NNN>-<feature>`
 - Ordem de merge: `spec/*` → `develop` → `stage` → `main`
 
-## Exploração do Legado — OBRIGATÓRIA
+## Exploração do Legado — COMPLETA (Stage 1 Done)
 
-Antes de escrever qualquer EARS no Estágio 2, seu par DEVE ter lido os programas Natural atribuídos em [`01-arqueologia/legado-sifap/natural-programs/`](../01-arqueologia/legado-sifap/natural-programs/) e os DDMs em [`01-arqueologia/legado-sifap/adabas-ddms/`](../01-arqueologia/legado-sifap/adabas-ddms/). Specs escritas sem leitura do legado perdem 29 anos de regras de negócio. A matriz de HARD GATE fica em [`01-arqueologia/LEGACY-EXPLORATION-CHECKLIST.md`](../01-arqueologia/LEGACY-EXPLORATION-CHECKLIST.md).
+Todos os 15 programas Natural e 4 DDMs foram analisados. Resultados consolidados em:
+- [`01-arqueologia/business-rules-catalog.md`](../01-arqueologia/business-rules-catalog.md) — 150 regras (BR-001 a BR-150)
+- [`01-arqueologia/discovery-report.md`](../01-arqueologia/discovery-report.md) — síntese + prioridades de migração
+- [`01-arqueologia/glossary.md`](../01-arqueologia/glossary.md) — 45 termos (usar para naming)
+
+**Para o Estágio 2**: toda EARS deve referenciar regras do catálogo via `source_legacy:` + BR-ID correspondente.
 
 ## Os 5 Pares e 10 Personas
 
@@ -161,8 +195,7 @@ Veja [`00-TEAM-FLOW.md`](../00-TEAM-FLOW.md) para diagramas de passagem e a linh
 | **Plan** | Planejamento de mudanças multi-arquivo antes da execução | "Planeje o bounded context `notification` com domain/application/infrastructure" |
 | **Agent** | Delegar features completas via Issue | "Implemente REQ-PAY-03: geração de ciclo com audit log" |
 
-> Veja [`09-cheat-sheets/copilot-3-modes.md`](../09-cheat-sheets/copilot-3-modes.md) para
-> orientações detalhadas e exemplos de prompts.
+Detalhes em [`09-cheat-sheets/copilot-3-modes.md`](../09-cheat-sheets/copilot-3-modes.md).
 
 ## Regras Rígidas — Não Faça Isto
 

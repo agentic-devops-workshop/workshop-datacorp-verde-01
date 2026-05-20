@@ -1,8 +1,8 @@
 ---
 description: "Mapeia dependências program-to-program (CALLNAT, INCLUDE) e program-to-data (acesso a DDM) para um escopo escolhido."
-mode: ask
+agent: agent
 model: claude-opus-4-7
-tools: ['codebase', 'search', 'usages']
+tools: ['search/codebase', 'search', 'search/usages', 'edit/editFiles', 'createFiles', 'execute/getTerminalOutput','execute/runInTerminal','read/terminalLastCommand','read/terminalSelection']
 ---
 
 # /map-dependencies

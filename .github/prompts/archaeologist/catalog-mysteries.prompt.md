@@ -1,8 +1,8 @@
 ---
 description: "Cataloga perguntas sem resposta encontradas durante a arqueologia — coisas que precisam de uma pessoa para resolver."
-mode: ask
+mode: agent
 model: claude-opus-4-7
-tools: ['codebase', 'search']
+tools: ['search/codebase', 'search', 'edit/editFiles', 'createFiles', 'execute/getTerminalOutput','execute/runInTerminal','read/terminalLastCommand','read/terminalSelection']
 ---
 
 # /catalog-mysteries

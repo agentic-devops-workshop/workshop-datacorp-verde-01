@@ -2,7 +2,7 @@
 description: "Traduz um programa Natural para Java 21 + Spring Boot 3.3 idiomático, preservando semântica de negócio."
 mode: agent
 model: claude-sonnet-4-6
-tools: ['codebase', 'search', 'editFiles', 'fetch']
+tools: ['codebase', 'search', 'editFiles', 'createFiles', 'runCommands', 'runTests', 'fetch']
 ---
 
 # /translate-natural-to-java

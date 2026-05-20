@@ -1,8 +1,8 @@
 ---
 description: "Encerra o Estágio 4 com uma retrospectiva da equipe sobre a experiência com agentes no dia."
-mode: ask
-model: claude-haiku-4-5
-tools: ['codebase', 'search']
+mode: agent
+model: claude-sonnet-4-6
+tools: ['codebase', 'search', 'editFiles', 'createFiles', 'runCommands']
 ---
 
 # /final-experience-report

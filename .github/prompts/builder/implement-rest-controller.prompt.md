@@ -2,7 +2,7 @@
 description: "Implementa um controller Spring REST a partir de uma definição de endpoint OpenAPI, conectando-o aos services do bounded context."
 mode: agent
 model: claude-sonnet-4-6
-tools: ['codebase', 'search', 'editFiles', 'runCommands']
+tools: ['codebase', 'search', 'editFiles', 'createFiles', 'runCommands', 'runTests']
 ---
 
 # /implement-rest-controller

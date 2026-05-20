@@ -2,7 +2,7 @@
 description: "Gera testes JUnit que validam se a implementação Java moderna produz as mesmas saídas que o original Natural para as mesmas entradas."
 mode: agent
 model: claude-sonnet-4-6
-tools: ['codebase', 'search', 'editFiles', 'runTests']
+tools: ['codebase', 'search', 'editFiles', 'createFiles', 'runTests', 'runCommands']
 ---
 
 # /generate-equivalence-tests

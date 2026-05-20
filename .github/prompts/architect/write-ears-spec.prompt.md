@@ -1,8 +1,8 @@
 ---
 description: "Traduz regras de negócio confirmadas em requisitos em notação EARS para o sistema moderno."
-mode: ask
+mode: agent
 model: claude-opus-4-7
-tools: ['codebase', 'search']
+tools: ['codebase', 'search', 'editFiles', 'createFiles', 'runCommands']
 ---
 
 # /write-ears-spec
