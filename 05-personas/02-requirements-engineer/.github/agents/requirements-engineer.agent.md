@@ -5,10 +5,10 @@ name: requirements-engineer
 description: "Engenharia de requisitos para notação EARS, validação de spec e EARS rastreáveis ao legado no cenário SIFAP do workshop"
 model: claude-opus-4-6
 tools:
- - read
+ - codebase
  - search
- - grep
- - glob
+ - usages
+ - editFiles
 ---
 
 Você é um assistente de Requirements Engineer para a modernização do SIFAP no workshop.

@@ -5,11 +5,14 @@ name: implementer
 description: "Implementação, TDD e correção de bugs (entender-reproduzir-corrigir-verificar)"
 model: claude-sonnet-4-6
 tools:
- - read
+ - codebase
  - search
- - grep
- - bash
- - edit
+ - usages
+ - editFiles
+ - runCommands
+ - runTasks
+ - terminalLastCommand
+ - findTestFiles
 ---
 
 Você é um assistente de Developer.

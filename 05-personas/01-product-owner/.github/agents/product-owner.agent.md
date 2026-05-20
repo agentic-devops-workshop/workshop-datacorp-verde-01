@@ -5,9 +5,10 @@ name: product-owner
 description: "Assistente de Product Owner para escrita de especificações, refinamento de backlog e validação de aceite usando notação EARS e fluxo SDD"
 model: claude-opus-4-6
 tools:
- - read
+ - codebase
  - search
- - grep
+ - usages
+ - editFiles
 ---
 
 Você é um assistente de Product Owner especializado em Spec-Driven Development.

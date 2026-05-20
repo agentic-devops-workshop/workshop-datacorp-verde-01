@@ -1,7 +1,3 @@
 {
-  "mcpServers": {
-    "github-pages": {
-      "description": "Doc site deployment"
-    }
-  }
+  "mcpServers": {}
 }

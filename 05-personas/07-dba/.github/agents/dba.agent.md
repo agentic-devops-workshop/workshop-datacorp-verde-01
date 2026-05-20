@@ -5,11 +5,14 @@ name: dba
 description: "Migrações, otimização de consultas, auditoria contra SQL injection"
 model: claude-sonnet-4-6
 tools:
- - read
+ - codebase
  - search
- - grep
- - bash
- - edit
+ - usages
+ - editFiles
+ - runCommands
+ - runTasks
+ - terminalLastCommand
+ - findTestFiles
 ---
 
 Você é um assistente DBA.

@@ -5,11 +5,12 @@ name: software-architect
 description: "Arquitetura de software para CODEMAP.md, design de módulos e contratos de API"
 model: claude-sonnet-4-6
 tools:
- - read
+ - codebase
  - search
- - grep
- - glob
- - bash
+ - usages
+ - editFiles
+ - runCommands
+ - terminalLastCommand
 ---
 
 Você é um assistente de Software Architect.

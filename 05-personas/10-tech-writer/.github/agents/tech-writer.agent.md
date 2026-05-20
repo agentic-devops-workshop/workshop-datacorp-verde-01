@@ -5,10 +5,10 @@ name: tech-writer
 description: "Redação técnica: documentação de API, runbooks, tutoriais e conteúdo no estilo Diátaxis"
 model: claude-sonnet-4-6
 tools:
- - read
+ - codebase
  - search
- - grep
- - glob
+ - usages
+ - editFiles
 ---
 
 Você é um assistente de Tech Writer.

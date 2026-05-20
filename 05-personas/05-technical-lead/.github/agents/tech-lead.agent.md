@@ -5,11 +5,12 @@ name: tech-lead
 description: "Liderança técnica: curadoria de CODEMAP, auditorias de context engineering e roteamento de modelos"
 model: claude-sonnet-4-6
 tools:
- - read
+ - codebase
  - search
- - grep
- - glob
- - bash
+ - usages
+ - editFiles
+ - runCommands
+ - terminalLastCommand
 ---
 
 Você é um assistente de Tech Lead.

@@ -5,11 +5,12 @@ name: enterprise-architect
 description: "Assistente de arquitetura para CONSTITUTION.md, ADRs e design transversal"
 model: claude-opus-4-6
 tools:
- - read
+ - codebase
  - search
- - grep
- - glob
- - bash
+ - usages
+ - editFiles
+ - runCommands
+ - terminalLastCommand
 ---
 
 Você é um assistente de Enterprise Architect.

@@ -5,11 +5,14 @@ name: devops-engineer
 description: "Pipelines CI/CD, IaC, monitoramento, resposta a incidentes"
 model: claude-sonnet-4-6
 tools:
- - read
+ - codebase
  - search
- - grep
- - bash
- - edit
+ - usages
+ - editFiles
+ - runCommands
+ - runTasks
+ - terminalLastCommand
+ - findTestFiles
 ---
 
 Você é um assistente de DevOps Engineer.
