@@ -43,7 +43,7 @@ O time tem **5 pessoas e 10 personas** (cada pessoa cobre 2 personas, em um "par
 | **2 · Arquitetura** | Enterprise Architect + Software Architect | Decidem **como** o sistema é organizado |
 | **3 · Implementação** | Technical Lead + Developer | Escrevem o **código** |
 | **4 · Qualidade** | DBA + QA Engineer | Cuidam dos **dados** e dos **testes** |
-| **5 · Operações** | DevOps Engineer + Tech Writer | Cuidam do **deploy** e da **documentação** |
+| **5 · Operações** | DevOps Engineer + Tech Writer | Cuidam do **deploy** e da **documentação** | 
 
 **Ação:** confirme com o facilitador em qual par você está. Anote aqui:
 
