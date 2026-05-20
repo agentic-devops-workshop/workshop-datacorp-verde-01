@@ -1,322 +1,328 @@
-<!-- markdownlint-disable MD013 MD025 MD026 MD028 MD029 MD034 MD040 MD051 MD060 -->
+---
+title: "Glossário SIFAP — Termos do Legado"
+description: "Vocabulário ubíquo extraído dos programas Natural e DDMs Adabas para alimentar EARS, ADRs e código moderno."
+author: "Par 5 · Operações (Tech Writer) — consolidado pelo @archaeologist"
+date: "2026-05-20"
+version: "0.1.0"
+status: "draft"
+stage: "01-arqueologia"
+sources_analyzed:
+  - 01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN
+  - 01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN
+tags: ["glossary", "ubiquitous-language", "stage-1", "sifap"]
+---
 
-# Glossário Visual — Jargão Decodificado
+<!-- markdownlint-disable MD013 MD025 MD026 MD028 MD034 MD040 -->
 
-![CONCEITO Glossário](https://img.shields.io/badge/CONCEITO-Glossário-00A4EF?style=for-the-badge) ![TERMOS 30+](https://img.shields.io/badge/TERMOS-30+-1A1A1A?style=for-the-badge) ![USE Quando ver jargão](https://img.shields.io/badge/USE-Quando%20ver%20jargão-737373?style=for-the-badge)
+# Glossário SIFAP — Estágio 1 (Arqueologia)
 
+![ESTÁGIO 01 Arqueologia](https://img.shields.io/badge/ESTÁGIO-01%20Arqueologia-F25022?style=for-the-badge) ![ARTEFATO Passagem 1](https://img.shields.io/badge/ARTEFATO-Passagem%201-1A1A1A?style=for-the-badge) ![META ≥ 30 termos](https://img.shields.io/badge/META-≥%2030%20termos-737373?style=for-the-badge)
 
-> 🗺 **Você está aqui:** [Kit PT-BR](../README.md) → [Conceitos](00-README.md) → **Glossário Visual**
+> 🗺 **Você está aqui:** [Kit PT-BR](../README.md) → [Estágio 1](README.md) → **glossary**
 
-> **Para quem é isto?** Para qualquer pessoa do time (especialmente PO, Tech Writer, analistas e quem não programa há um tempo) que vai cruzar com estes termos hoje. Cada verbete tem **três linhas só**: o que é, uma analogia do dia-a-dia, e onde aparece no workshop.
+> **Para quem é isto?** Para todo o time, mas especialmente Par 1 (Visão) e Par 2 (Arquitetura) no Estágio 2 — cada termo aqui vira sujeito ou objeto de EARS.
 >
-> **Como usar:** abra esta página em uma aba à parte e volte aqui sempre que tropeçar em uma sigla. Você não precisa decorar nada — só precisa saber onde olhar.
+> **Fonte:** termos extraídos linha a linha dos programas Natural lidos até agora. Toda entrada carrega `legacy source` quando veio de código. Termos sem fonte legada são marcados `[GREENFIELD]`.
 
-## Mapa rápido por estágio
-
-| Você está no… | Vai cruzar com (mínimo) |
-|---|---|
-| Estágio 1 (Arqueologia) | Natural, NSN, DDM, Adabas, MU, PE, BR-NNN, glossário, mistério |
-| Estágio 2 (Spec Moderna) | EARS, REQ-ID, source_legacy, ADR, C4, bounded context, greenfield, Spec-Kit |
-| Estágio 3 (Implementação) | JPA, Flyway, migração, Testcontainers, controller, service, repository, Bean Validation, Server Component, Swagger |
-| Estágio 4 (Evolução) | Agent, Issue, PR, Terraform, IaC, CI/CD, Actions, ACR, Key Vault |
+> ⚠️ **Status:** rascunho parcial — alimentado por **2 dos 15 programas** (BATCHCON, BATCHPGT). Os outros 13 programas e 4 DDMs adicionarão termos. Não fechar a Passagem #1 sem ≥ 30 termos consolidados.
 
 ---
 
-## 🌍 Tabela de equivalência (EN ↔ PT-BR ↔ Super Mario)
+## Como ler uma entrada
 
-Para quem precisa traduzir entre inglês técnico, português do workshop e a analogia Mario:
-
-| 🇬🇧 Inglês | 🇧🇷 PT-BR | 🍄 Mario |
-|---|---|---|
-| handoff | passagem | cano verde 🟢 |
-| stakeholder | parte interessada | NPC importante (Princesa, Toad) |
-| backlog | lista de pendências | quests não aceitas ainda |
-| commit | versão local | save rápido 💾 |
-| push | enviar para nuvem | backup na nuvem ☁️ |
-| pull request (PR) | proposta de mudança | mostrar save pros colegas 👀 |
-| merge | unir branches | save oficial no servidor |
-| rebase | reorganizar histórico | mudar a ordem dos saves |
-| code review | revisão de código | colega olhando seu save |
-| CI green | testes passaram | estrela de invencibilidade ⭐ |
-| CI red | testes falharam | Goomba na cara 🟫 |
-| breaking change | mudança incompatível | troca de mundo (1 → 2) |
-| rollback | reverter | voltar para o checkpoint |
-| feature flag | botão liga/desliga | bloco com `?` |
-| deployment | publicar versão | conquistar o castelo 🏰 |
-| production | ambiente real | jogo de verdade |
-| staging | ambiente de teste | warp zone |
-| sandbox | ambiente isolado | sala de treino |
-| bug | defeito | Goomba no caminho |
-| hotfix | correção urgente | cogumelo 1-up |
-| refactor | reescrever sem mudar comportamento | reorganizar inventário |
-| technical debt | dívida técnica | corações faltando |
-| smoke test | teste de fumaça | "joga 1 nível para ver se ligou" |
-| spike | investigação curta | explorar um cano novo |
+```text
+**Termo** (`SIGLA-LEGADO` se houver)
+: Definição em 1–2 frases na voz do negócio.
+  - **Tipo:** entidade · atributo · evento · regra · código de domínio
+  - **legacy source:** `caminho/ARQUIVO.NSN#L<ini>-L<fim>` ou `[GREENFIELD]`
+  - **Notas:** ambiguidades, sinônimos, decisões pendentes
+```
 
 ---
 
 ## A
 
-### ADR · Architecture Decision Record
+**Abono Natalino**
+: Bônus de 15% sobre o valor base do benefício, pago em dezembro **apenas** para beneficiários cujo `PROGRAMA-SOCIAL.TIPO = 'A'` (assistencial).
+- **Tipo:** regra de cálculo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L296-L301`
+- **Notas:** Regra não documentada nos manuais; descoberta apenas no código. Candidata a `MYS-PGT-06`.
 
-- **O que é:** um arquivo curto em Markdown que registra **uma decisão de arquitetura** e por quê ela foi tomada.
-- **Analogia:** ata de reunião curta, mas só sobre "por que escolhemos isso".
-- **Onde aparece:** Estágio 2. Template em `02-spec-moderna/ADR-TEMPLATE.md`, exemplos em `08-exemplos/ADR-001-monolito-modular.md`.
+**Ação (de Auditoria)** (`AUDITORIA.ACAO`)
+: Código de 2 letras que identifica o tipo de evento auditado (`CO` = conciliado, `DV` = divergência, …).
+- **Tipo:** código de domínio
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L218, L233`
+- **Notas:** Catálogo completo de códigos ainda não mapeado — depende de leitura de `RELAUDIT.NSN`.
 
-### Adabas
+**Adabas**
+: SGBD não-relacional da Software AG usado pelo SIFAP desde 1997. Armazena dados em "arquivos" numerados (150, 155, 160, 170) com campos `MU` (multi-valor) e `PE` (grupo periódico).
+- **Tipo:** plataforma
+- **legacy source:** `[GREENFIELD]` (termo de infraestrutura — alvo de migração para PostgreSQL 16)
 
-- **O que é:** o banco de dados do mainframe onde o SIFAP guarda dados há 29 anos.
-- **Analogia:** o "Excel gigante" do governo, mas com regras especiais (ver MU e PE).
-- **Onde aparece:** Estágio 1, ao olhar os arquivos `.ddm` em `01-arqueologia/legado-sifap/adabas-ddms/`.
+**Arquivo 150 / 155 / 160 / 170**
+: Numeração interna dos arquivos Adabas — respectivamente `BENEFICIARIO`, `PROGRAMA-SOCIAL`, `PAGAMENTO`, `AUDITORIA`.
+- **Tipo:** identificador físico
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L11` (header), `BATCHCON.NSN#L11`
 
-### Agent (Copilot Agent / modo Agent)
-
-- **O que é:** terceiro modo do GitHub Copilot. Você escreve uma **Issue bem detalhada**, ele lê o código, implementa e abre um PR sozinho.
-- **Analogia:** estagiário muito rápido e literal — faz exatamente o que você pediu, sem perguntar.
-- **Onde aparece:** Estágio 4 (`04-evolucao/GUIDE.md`).
-
-### Ask (modo Ask do Copilot)
-
-- **O que é:** primeiro modo do Copilot. Você pergunta, ele responde no chat.
-- **Analogia:** Google interno do seu código.
-- **Onde aparece:** todos os estágios. Cheat-sheet: `09-cheat-sheets/copilot-3-modes.md`.
+**Auditoria** (`AUDITORIA`)
+: Registro append-only de eventos relevantes (conciliação, divergência, alteração de pagamento). Cada evento carrega usuário, data/hora, tabela referenciada, chave, valor anterior e novo.
+- **Tipo:** entidade
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L25-L35`
+- **Notas:** Sequência (`SEQ-AUDIT`) é gerada por `READ ... DESCENDING + ESCAPE BOTTOM` — sem identity nativa.
 
 ## B
 
-### Bean Validation
+**Banco do Brasil (BB)**
+: Único banco efetivamente integrado ao SIFAP em produção. `COD-BANCO = 1` hardcoded no fonte.
+- **Tipo:** parceiro externo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L156`
+- **Notas:** Campo `COD-BANCO` é `N3` (suporta 999) mas só `1` é gravado.
 
-- **O que é:** anotações Java (`@NotNull`, `@Email`, `@Size`) que validam dados de entrada automaticamente.
-- **Analogia:** porteiro do prédio — barra os dados ruins antes deles entrarem.
-- **Onde aparece:** Estágio 3, nos DTOs dos controllers.
+**Banco Real (descontinuado)**
+: Integração CNAB com layout próprio (CPF em pos. 30-43, valor em 100-112). Banco adquirido pelo Santander em 2007; código permanece comentado no fonte.
+- **Tipo:** parceiro externo (histórico)
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L199-L213`
+- **Notas:** Pode haver dados históricos pré-2007 ainda nesse layout. Tratar em ADR de migração.
 
-### Bounded Context
+**Batch Mensal**
+: Processamento crítico executado no **1º dia útil do mês** que gera pagamentos para todos os beneficiários ativos.
+- **Tipo:** evento de processo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L9` (header)
 
-- **O que é:** um pedaço bem delimitado do sistema com vocabulário próprio. Em SIFAP temos 4: `beneficiary`, `payment`, `audit`, `admin`.
-- **Analogia:** departamentos de uma empresa — RH e Contabilidade têm a palavra "salário", mas significam coisas diferentes em cada um.
-- **Onde aparece:** Estágios 2 e 3.
-
-### BR-NNN · Business Rule (regra de negócio)
-
-- **O que é:** identificador de uma regra extraída do legado (ex.: `BR-013`).
-- **Analogia:** número da nota fiscal — sem ele, ninguém acha de novo.
-- **Onde aparece:** Estágio 1, no `business-rules-catalog.md`.
+**Beneficiário** (`BENEFICIARIO`)
+: Pessoa física cadastrada para receber pagamento de um programa social. Chave: CPF.
+- **Tipo:** entidade central
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L14-L23`
 
 ## C
 
-### C4 (modelo C4)
+**CNAB 240**
+: Layout bancário FEBRABAN de 240 caracteres por linha usado pelo Banco do Brasil para retorno de pagamentos. Registro tipo `3` é detalhe.
+- **Tipo:** formato de integração
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L37-L46`
 
-- **O que é:** forma de desenhar arquitetura em 4 níveis de zoom: **Contexto** (L1), **Containers** (L2), **Componentes** (L3) e **Código** (L4).
-- **Analogia:** Google Maps do sistema — você pode ver o país, a cidade, o quarteirão ou a casa.
-- **Onde aparece:** Estágio 2. Usamos apenas L1 e L2.
+**Código de Retorno** (`COD-RETORNO`)
+: Código de 2 caracteres devolvido pelo banco indicando o resultado do pagamento: `00` pago, `01` devolvido, `02` erro. Demais códigos são logados mas **não atualizam status** (bug histórico).
+- **Tipo:** código de domínio
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L152-L180`
 
-### CI/CD · Integração e Entrega Contínuas
+**Competência**
+: Mês/ano de referência do pagamento no formato `AAAAMM` (ex.: `202605`). Calculado a partir de `*DATN` na execução do batch.
+- **Tipo:** atributo temporal
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L104-L106`
 
-- **O que é:** automação que roda testes a cada commit (CI) e faz deploy automático (CD).
-- **Analogia:** linha de montagem que testa cada peça antes da próxima estação.
-- **Onde aparece:** Estágio 4, em `.github/workflows/`.
+**Conciliação Bancária**
+: Processo que cruza pagamentos gerados (`STATUS = 'G'`) com o retorno CNAB, atualizando para `P/D/E` conforme o código bancário e gerando registros de auditoria.
+- **Tipo:** processo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L60-L195`
 
-### Controller
-
-- **O que é:** a classe Java que recebe requisições HTTP (`POST /api/v1/payments`) e devolve respostas.
-- **Analogia:** recepcionista — atende e encaminha para o setor certo.
-- **Onde aparece:** Estágio 3, em `infrastructure/`.
+**CPF**
+: Identificador do beneficiário (11 dígitos). Chave de leitura ordenada em `BATCHPGT` — ordenação que outros sistemas downstream dependem.
+- **Tipo:** atributo / chave natural
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L175-L178`
 
 ## D
 
-### DDM · Data Definition Module
+**Dependentes** (`NUM-DEPENDENTES`)
+: Quantidade de dependentes do beneficiário; entra no cálculo do **Fator Familiar**.
+- **Tipo:** atributo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L19, L246-L256`
 
-- **O que é:** arquivo `.ddm` do Adabas que descreve a estrutura de uma "tabela" (campos, tipos, tamanhos).
-- **Analogia:** o schema do Excel — quais colunas existem, de que tipo, com que tamanho.
-- **Onde aparece:** Estágio 1, em `01-arqueologia/legado-sifap/adabas-ddms/`. Temos 4: BENEFICIARIO, PROGRAMA-SOCIAL, PAGAMENTO, AUDITORIA.
+**Devolvido (D)**
+: Status de pagamento atribuído quando o banco retorna código `01` — fundos não creditados.
+- **Tipo:** estado
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L162-L168`
 
-### DoD · Definition of Done
-
-- **O que é:** lista de checkboxes que provam que uma etapa terminou de verdade.
-- **Analogia:** checklist do piloto antes de decolar.
-- **Onde aparece:** final de cada `GUIDE.md`.
-
-### DTO · Data Transfer Object
-
-- **O que é:** um "saco" com campos para enviar/receber dados pela API. Sem regras, só dados.
-- **Analogia:** envelope com formulário preenchido.
-- **Onde aparece:** Estágio 3 (`PaymentRequest.java`, `BeneficiaryResponse.java`).
+**Divergência**
+: Diferença entre valor SIFAP e valor pago pelo banco maior que **R$ 0,01** (tolerância). Gera evento `DV` em `AUDITORIA`.
+- **Tipo:** evento
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L136-L150`
 
 ## E
 
-### EARS · Easy Approach to Requirements Syntax
-
-- **O que é:** forma padrão de escrever requisitos sem ambiguidade, usando 6 padrões (sempre, evento, estado, opcional, proibido, combinado).
-- **Analogia:** receita de bolo — tem ingrediente, ordem e tempo. Sem chute.
-- **Onde aparece:** Estágio 2. Padrões detalhados em `02-spec-moderna/GUIDE.md§EARS`.
-- **Exemplo bom:** *"Quando um beneficiário é cadastrado, o SIFAP deve validar o CPF usando módulo 11."*
-- **Exemplo ruim:** *"O sistema deve ser seguro."* (não é testável)
+**Erro (E)**
+: Status de pagamento atribuído quando o banco retorna código `02`.
+- **Tipo:** estado
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L169-L175`
 
 ## F
 
-### Flyway
+**Faixa de Renda**
+: 5 faixas de renda familiar com fatores multiplicativos decrescentes (0,40 a 1,00). Quanto maior a renda, menor o fator.
+- **Tipo:** tabela de domínio
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L153-L161`
 
-- **O que é:** ferramenta que aplica scripts SQL versionados no banco (`V1__init.sql`, `V2__add_status.sql`).
-- **Analogia:** controle de versão do banco — você nunca edita uma migração antiga, sempre cria uma nova.
-- **Onde aparece:** Estágio 3, em `src/main/resources/db/migration/`.
+**Fator Familiar**
+: Multiplicador derivado do número de dependentes (escalonado: +5%/dep até 2, +3%/dep até 4, +2%/dep acima).
+- **Tipo:** regra de cálculo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L246-L256`
+
+**Fator Idade**
+: Multiplicador por faixa etária (1,15 para ≥65; 1,10 para ≥60; 1,05 para <18; 1,00 caso contrário).
+- **Tipo:** regra de cálculo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L265-L275`
+
+**Fator Reajuste** (`FATOR-REAJUSTE`)
+: Multiplicador anual cadastrado no `PROGRAMA-SOCIAL`. Aplicado ao final do cálculo: `VLR × (1 + FATOR_REAJ)`.
+- **Tipo:** atributo de programa
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L38, L281`
+
+**Fator Regional**
+: Multiplicador de 27 posições (1,00 a 1,40) indexado por `COD-REGIAO`. Tabela **duplicada** entre BATCHPGT e CALCBENF.
+- **Tipo:** tabela de domínio
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L120-L148`
 
 ## G
 
-### Greenfield
-
-- **O que é:** requisito que **não vem do legado** — é funcionalidade nova de verdade.
-- **Analogia:** terreno baldio para construir do zero.
-- **Onde aparece:** Estágio 2. Quando uma REQ-ID é greenfield, escrevemos `source_legacy: "[GREENFIELD] <motivo>"`.
+**Gerado (G)**
+: Status inicial do pagamento ao ser criado por `BATCHPGT`. Aguarda conciliação para virar `P/D/E`.
+- **Tipo:** estado
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L334`
 
 ## I
 
-### IaC · Infrastructure as Code
+**Idempotência Mensal**
+: Garantia de que `BATCHPGT` não gera segundo pagamento se já existir pagamento com mesma `COMPETENCIA` para o CPF.
+- **Tipo:** regra de negócio
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L196-L204`
 
-- **O que é:** descrever servidores, bancos e redes em arquivos de texto (Terraform) em vez de criar tudo na mão no portal Azure.
-- **Analogia:** receita do bolo da infraestrutura — qualquer pessoa pode refazer o mesmo bolo.
-- **Onde aparece:** Estágio 4, em `05-terraform-azure/`.
+## L
 
-### Issue (GitHub Issue)
-
-- **O que é:** um ticket no GitHub descrevendo o que precisa ser feito.
-- **Analogia:** post-it gigante anexado ao código.
-- **Onde aparece:** Estágio 4 — você escreve Issues que o Agent vai implementar.
-
-## J
-
-### JPA · Java Persistence API
-
-- **O que é:** padrão Java para mapear classes em tabelas do banco. Você marca a classe com `@Entity` e o banco entende.
-- **Analogia:** tradutor entre o mundo de objetos do Java e o mundo de tabelas do PostgreSQL.
-- **Onde aparece:** Estágio 3 (`@Entity public class PaymentEntity { ... }`).
-
-### JWT · JSON Web Token
-
-- **O que é:** "passe" criptografado que o backend dá ao usuário após login. Você envia em cada requisição.
-- **Analogia:** pulseirinha de festa — provou quem é uma vez, agora basta mostrar a pulseira.
-- **Onde aparece:** Estágio 3, na autenticação via Swagger.
-
-## M
-
-### Migração (database migration)
-
-- **O que é:** script SQL versionado que muda o schema do banco (criar tabela, adicionar coluna).
-- **Onde aparece:** Estágio 3, gerenciado pelo Flyway.
-
-### MU · Multiple-Value field (Adabas)
-
-- **O que é:** campo do Adabas que guarda **vários valores** dentro de uma mesma linha (ex.: `TELEFONES` com 3 números).
-- **Analogia:** célula do Excel com lista dentro — coisa que SQL puro não tem.
-- **Por que importa:** todo `MU` no DDM vira uma **tabela filha** no PostgreSQL (ex.: `beneficiary_phone`).
-- **Onde aparece:** Estágio 1, ao mapear os 4 DDMs.
+**Layout BB**
+: Posicionamento dos campos no CNAB 240 do Banco do Brasil (CPF em 44-54, valor em 120-134, data em 140-147, cód. retorno em 231-232).
+- **Tipo:** mapeamento de integração
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L101-L108`
 
 ## N
 
-### Natural (linguagem)
-
-- **O que é:** linguagem de programação dos anos 80 usada com Adabas no mainframe. Nossos arquivos `.NSN` são programas Natural.
-- **Analogia:** parente distante do COBOL — verboso, com `IF`/`END-IF`, sem orientação a objeto.
-- **Onde aparece:** Estágio 1. Guia de leitura para não-programadores: `01-arqueologia/legado-sifap/COMO-LER-NATURAL.md`.
-
-### NSN (arquivo `.NSN`)
-
-- **O que é:** extensão dos programas Natural.
-- **Analogia:** equivalente a `.py` (Python) ou `.java` (Java), mas para Natural.
-- **Onde aparece:** Estágio 1, em `01-arqueologia/legado-sifap/natural-programs/` (temos 15).
+**NIS**
+: Número de Identificação Social do beneficiário (11 dígitos). Atributo presente mas não usado nas regras de cálculo lidas até agora.
+- **Tipo:** atributo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L23`
+- **Notas:** Confirmar uso em `CADBENEF.NSN` (Par 1).
 
 ## P
 
-### PE · Periodic Group (Adabas)
+**Pagamento** (`PAGAMENTO`)
+: Registro mensal de valor devido a um beneficiário. Atributos-chave: `NUM-PAGTO`, `CPF-BENEF`, `COMPETENCIA`, `VLR-BRUTO`, `VLR-DESCONTO`, `VLR-LIQUIDO`, `STATUS-PGTO`, `TIPO-PGTO`.
+- **Tipo:** entidade central
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L25-L35`
 
-- **O que é:** grupo de campos que se repete várias vezes dentro do mesmo registro (ex.: até 12 históricos mensais).
-- **Analogia:** sub-tabela embutida na linha — também não cabe em SQL puro.
-- **Por que importa:** todo `PE` vira tabela filha no PostgreSQL.
-- **Onde aparece:** Estágio 1, junto com MU.
+**Pago (P)**
+: Status final positivo — banco confirmou crédito com código `00`. Grava `DT-PAGAMENTO` e `COD-BANCO`.
+- **Tipo:** estado
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L153-L161`
 
-### PR · Pull Request
-
-- **O que é:** pedido de incorporar mudanças de uma branch na branch principal (`main`).
-- **Analogia:** pedir aprovação de um desenho antes de pintar a parede.
-- **Onde aparece:** todos os estágios. Estágio 4: o Agent abre PRs sozinho.
-
-### Plan (modo Plan do Copilot)
-
-- **O que é:** segundo modo do Copilot. Você descreve uma mudança, ele propõe um **plano** com os arquivos a tocar — antes de fazer.
-- **Analogia:** orçamento antes da reforma.
-- **Onde aparece:** Estágios 2, 3, 4. Cheat-sheet: `09-cheat-sheets/copilot-3-modes.md`.
+**Programa Social** (`PROGRAMA-SOCIAL`)
+: Catálogo de programas pagáveis. Tem `TIPO` (`A` = assistencial), `VLR-BASE`, `FATOR-REAJUSTE`, `RENDA-MAX` e `STATUS-PROG`.
+- **Tipo:** entidade
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L37-L43`
 
 ## R
 
-### Repository (Spring Data)
+**Registro Detalhe (CNAB tipo 3)**
+: Linha do arquivo CNAB que carrega dados de pagamento individual. Outros tipos (cabeçalho, trailer) são ignorados.
+- **Tipo:** registro de integração
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L97-L100`
 
-- **O que é:** interface Java que dá métodos prontos pra ler/gravar dados (`findById`, `save`, `deleteAll`).
-- **Analogia:** garçom — você pede `findById(42)` e ele traz da cozinha (banco).
-- **Onde aparece:** Estágio 3, em `infrastructure/`.
-
-### REQ-ID
-
-- **O que é:** identificador único de um requisito (ex.: `REQ-PAY-013`).
-- **Analogia:** número da CNH — sem ele, o requisito não rastreia.
-- **Onde aparece:** Estágio 2 em diante. Todo commit do Estágio 3 cita `Implements REQ-XXX`.
+**Renda Familiar** (`RENDA-FAMILIAR`)
+: Renda mensal declarada da família. Entra na função **Faixa de Renda** para definir o fator multiplicativo.
+- **Tipo:** atributo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L18, L238`
 
 ## S
 
-### Server Component (Next.js)
+**SEQ-AUDIT**
+: Número sequencial monotônico de eventos de auditoria. Obtido por `READ ... DESCENDING + ESCAPE BOTTOM` no início do batch e incrementado em memória.
+- **Tipo:** atributo / chave
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L82-L85`
+- **Notas:** Sem garantia de unicidade sob concorrência — risco em ambiente moderno multi-instância.
 
-- **O que é:** componente React que **roda no servidor** — sem JavaScript no navegador do usuário.
-- **Analogia:** página HTML clássica gerada no servidor, mas escrita em estilo React moderno.
-- **Onde aparece:** Estágio 3, no frontend Next.js.
+**Status do Beneficiário** (`STATUS`)
+: Letra única indicando se beneficiário é ativo (`A`). Apenas ativos entram no batch.
+- **Tipo:** código de domínio
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L193`
 
-### Service
+**Status do Pagamento** (`STATUS-PGTO`)
+: Máquina de estados: `G` (gerado) → `P` (pago) | `D` (devolvido) | `E` (erro). Sem documentação de transições inválidas no legado.
+- **Tipo:** código de domínio
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L334`, `BATCHCON.NSN#L153-L175`
 
-- **O que é:** classe Java com a **lógica de negócio**. Fica entre Controller e Repository.
-- **Analogia:** cérebro da operação — recebe pedido do recepcionista (controller) e decide o que fazer.
-- **Onde aparece:** Estágio 3, em `application/`.
-
-### `source_legacy:`
-
-- **O que é:** linha obrigatória em cada REQ-ID que aponta para o arquivo legado de origem (ex.: `01-arqueologia/legado-sifap/natural-programs/CALCDSCT.NSN#L142-L148`).
-- **Analogia:** nota de rodapé com fonte da informação.
-- **Onde aparece:** Estágio 2. **Se faltar, o CI rejeita o PR.**
-
-### Spec-Kit
-
-- **O que é:** ferramenta oficial do GitHub para Spec-Driven Development. Instala comandos `/speckit.specify`, `/speckit.clarify`, `/speckit.plan`, etc.
-- **Analogia:** roteiro guiado — do "tenho uma ideia" até "tenho tarefas claras".
-- **Onde aparece:** Estágio 2. Cheat-sheet: `09-cheat-sheets/spec-kit-workflow.md`.
-
-### Swagger UI
-
-- **O que é:** página web automática que documenta e testa endpoints da API.
-- **Analogia:** menu interativo do restaurante — você lê o cardápio e pede direto na página.
-- **Onde aparece:** Estágio 3, em `http://localhost:8080/swagger-ui.html`.
+**Status do Programa** (`STATUS-PROG`)
+: Letra única indicando se programa está ativo (`A`). Programas inativos não geram pagamento.
+- **Tipo:** código de domínio
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L225`
 
 ## T
 
-### Terraform
+**Tipo de Pagamento** (`TIPO-PGTO`)
+: `N` = normal · `D` = dezembro (com 13º). Atribuído por `BATCHPGT`.
+- **Tipo:** código de domínio
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L289, L292`
 
-- **O que é:** ferramenta de IaC que descreve infraestrutura Azure em arquivos `.tf`.
-- **Analogia:** receita escrita da nuvem — `terraform apply` cria tudo.
-- **Onde aparece:** Estágio 4, em `05-terraform-azure/`. **No workshop só rodamos `terraform plan` — nada de `apply` real.**
+**Tipo de Programa** (`PROGRAMA-SOCIAL.TIPO`)
+: `A` = assistencial (recebe abono natalino) · demais tipos não documentados nos programas lidos.
+- **Tipo:** código de domínio
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L296`
 
-### Testcontainers
+**Tolerância de Centavo**
+: Diferença até **R$ 0,01** entre valor SIFAP e valor banco é aceita sem gerar divergência. Origem regulatória **não documentada** (`MYS-CON-03`).
+- **Tipo:** regra de cálculo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHCON.NSN#L139`
 
-- **O que é:** biblioteca Java que sobe um **PostgreSQL real em Docker** durante os testes — não usa mock.
-- **Analogia:** simulador de voo real, não videogame.
-- **Onde aparece:** Estágio 3. Exige Docker rodando.
+**Truncamento (vs. arredondamento)**
+: `BATCHPGT` trunca valores a 2 casas decimais via `(#VLR * 100) / 100` em vez de arredondar. `BATCHREL` arredonda → relatórios divergem da folha.
+- **Tipo:** convenção numérica
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L283-L286`
 
 ## V
 
-### `.NSN`
+**Valor Base** (`VLR-BASE`)
+: Valor de partida do benefício cadastrado em `PROGRAMA-SOCIAL`. Antes da aplicação de fatores.
+- **Tipo:** atributo
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L40`
 
-→ ver **NSN**.
+**Valor Bruto** (`VLR-BRUTO`)
+: Valor calculado após fatores e antes do desconto. Em dezembro inclui 13º e abono.
+- **Tipo:** atributo monetário
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L288, L300`
+
+**Valor Desconto** (`VLR-DESCONTO`)
+: Desconto simplificado de 3% sobre o bruto quando bruto > R$ 500 (lógica completa está em `CALCDSCT.NSN`, ainda não lido).
+- **Tipo:** atributo monetário
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L306-L312`
+
+**Valor Líquido** (`VLR-LIQUIDO`)
+: Bruto menos desconto, nunca negativo (`IF #VLR-LIQ < 0 MOVE 0`).
+- **Tipo:** atributo monetário
+- **legacy source:** `01-arqueologia/legado-sifap/natural-programs/BATCHPGT.NSN#L315-L321`
 
 ---
 
-## Atalhos visuais
+## Termos pendentes (a preencher quando outros programas forem lidos)
 
-![Cadeia de rastreabilidade: legado .NSN/.ddm vira BR-NNN, depois REQ-ID em EARS, depois código Java, teste com Testcontainers, e PR no GitHub](../assets/traceability-chain.svg)
+| Termo candidato | Programa que deve fornecer | Par responsável |
+| --- | --- | --- |
+| Dependente (cadastro completo) | `CADDEPEND.NSN` | Par 1 |
+| Validação CPF (mod-11) | `VALDOCS.NSN`, `VALBENEF.NSN` | Par 4 |
+| Elegibilidade | `VALELEG.NSN` | Par 4 |
+| Correção Monetária | `CALCCORR.NSN` | Par 3 |
+| Desconto Judicial / IR / Sindical | `CALCDSCT.NSN` | Par 3 |
+| Relatório de Pagamentos | `RELPGT.NSN`, `BATCHREL.NSN` | Par 2 / Par 5 |
+| Consulta Beneficiário | `CONSBENF.NSN` | Par 5 |
+| Auditoria de Acesso | `RELAUDIT.NSN` | Par 5 |
+| Campos `MU` / `PE` (Adabas) | DDMs | Par 4 |
 
-Essa cadeia é a **rastreabilidade** que o CI verifica. Sempre que tiver dúvida do que está fazendo, volte ao elo anterior.
+---
+
+## Notas de processo
+
+- **Cobertura atual:** ~40 termos a partir de 2 programas. Meta da Passagem #1 (≥30) **atingida**, mas o glossário **não** é considerado pronto até os 15 `.NSN` + 4 `.ddm` serem lidos.
+- **Voz:** padronização final fica com **Par 5 · Tech Writer** antes do H1.
+- **Conflitos pendentes** (resolver com Par 1 · PO):
+  - Truncamento (BATCHPGT) vs. arredondamento (BATCHREL) — qual é a verdade financeira?
+  - Desconto inline 3% (BATCHPGT) vs. lógica completa (CALCDSCT) — qual prevalece?
+  - Códigos de retorno bancário só mapeados para `00/01/02` — comportamento para os demais é bug ou regra?
 
 ---
 
@@ -326,13 +332,13 @@ Essa cadeia é a **rastreabilidade** que o CI verifica. Sempre que tiver dúvida
 <tr>
 <td width="50%" valign="top" align="left">
 <sub><strong>← ANTERIOR</strong></sub><br/>
-<a href="README.md"><strong>Documentação transversal</strong></a><br/>
-<sub>glossário, sdlc-flow, persona-agent-matrix, runbook.</sub>
+<a href="LEGACY-EXPLORATION-CHECKLIST.md"><strong>Checklist de Exploração</strong></a><br/>
+<sub>HARD GATE antes do Estágio 2.</sub>
 </td>
 <td width="50%" valign="top" align="right">
 <sub><strong>PRÓXIMO →</strong></sub><br/>
-<a href="../01-arqueologia/legado-sifap/COMO-LER-NATURAL.md"><strong>Como Ler Natural</strong></a><br/>
-<sub>Extrair regras de .NSN sem saber a sintaxe.</sub>
+<a href="business-rules-catalog.md"><strong>Catálogo de Regras</strong></a><br/>
+<sub>BRs com Programa Fonte.</sub>
 </td>
 </tr>
 </table>
